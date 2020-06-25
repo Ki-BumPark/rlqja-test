@@ -1,19 +1,16 @@
-from bs4 import BeautifulSoup
-import re 
-html= """
-<ul>
-    <li><a href="hoge.html">hoge</li>
-    <li><a href="https://example.com/fuga">fuga*</li>
-    <li><a href="https://example.cm/foo">foo*</li>
-    <li><<a href="http://example.com/aaa">aaa</li>
-</ul>
-"""
+import requests
+import json
+
+api = "~~~~~~"
+
+apikey = "~~~~~~~"
 
 
-bs = BeautifulSoup(html, "html.parser")
+cities = ["Seoul,KR", "Tokyo,JP", "New York,US"]
 
+k2c = lambda k: k-273.15
 
-datas = bs.findAll(href=re.compile(r"^https://"))
-
-for data in datas:
-    print(data.attrs['href'])
+for name in cities:
+    url = api.format(city = name, key = apikey)
+    res = requests.get(url)
+    data = json.loads(res.text):wq
